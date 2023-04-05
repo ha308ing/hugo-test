@@ -1,0 +1,15 @@
+[submodule "themes/mini"]
+	path = themes/mini
+	url = https://github.com/nodejh/hugo-theme-mini
+[submodule "themes/no-style-please"]
+	path = themes/no-style-please
+	url = https://github.com/Masellum/hugo-theme-nostyleplease
+[submodule "themes/devise"]
+	path = themes/devise
+	url = https://github.com/austingebauer/devise
+[submodule "themes/nostyleplease"]
+	path = themes/nostyleplease
+	url = https://github.com/Masellum/hugo-theme-nostyleplease
+[submodule "themes/paper"]
+	path = themes/paper
+	url = https://github.com/nanxiaobei/hugo-paper
