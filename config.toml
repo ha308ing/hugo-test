@@ -6,6 +6,7 @@ summaryLength = 70
 refLinksErrorLevel = 'ERROR'
 # refLinksNotFoundURL
 posts = '/posts/:year/:month/:title'
+sectionPagesMenu = 'main'
 [taxonomies]
   category = 'categories'
   series = 'series'
