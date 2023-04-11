@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Poli on Блог</title>
+    <link>http://example.org/ru/poli/</link>
+    <description>Recent content in Poli on Блог</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Tue, 11 Apr 2023 20:27:58 +0300</lastBuildDate><atom:link href="http://example.org/ru/poli/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Май</title>
+      <link>http://example.org/poli/may-ru/</link>
+      <pubDate>Tue, 11 Apr 2023 20:27:58 +0300</pubDate>
+      
+      <guid>http://example.org/poli/may-ru/</guid>
+      <description>Май </description>
+    </item>
+    
+    <item>
+      <title>Апрель</title>
+      <link>http://example.org/ru/poli/april/post/</link>
+      <pubDate>Tue, 11 Apr 2023 20:17:21 +0300</pubDate>
+      
+      <guid>http://example.org/ru/poli/april/post/</guid>
+      <description>Апрель </description>
+    </item>
+    
+  </channel>
+</rss>

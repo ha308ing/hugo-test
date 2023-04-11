@@ -1,5 +1,8 @@
 baseURL = 'http://example.org/'
-languageCode = 'en-us'
+# languageCode = 'en-us'
+defaultContentLanguage = 'en'
+disableLanguages = ['fr', 'ja']
+enableMissingTranslationPlaceholders = true
 title = 'My New Hugo Site'
 theme = 'paper'
 summaryLength = 70
@@ -14,4 +17,21 @@ staticDir = ['static1', 'static2']
   tags = 'tags'
   product_type = 'product-types'
 [params]
-color = 'linen'
+  color = 'linen'
+  [params.navigation]
+    help = 'Help'
+[languages]
+  [languages.en]
+    title = 'Blog'
+    weight = 1
+    # baseURL = 'https://example.com'
+    # contentDir = 'content/en'
+    languageName = 'English'
+  [languages.ru]
+    title = 'Блог'
+    # baseURL = 'https://example.ru'
+    # contentDir = 'content/ru'
+    languageName = 'Русский'
+    [languages.ru.params]
+      help = 'Помощь'
+      poli = 'Полиэ'
