@@ -5,6 +5,7 @@ theme = 'paper'
 summaryLength = 70
 refLinksErrorLevel = 'ERROR'
 # refLinksNotFoundURL
+posts = '/posts/:year/:month/:title'
 [taxonomies]
   category = 'categories'
   series = 'series'
