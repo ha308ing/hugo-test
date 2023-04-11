@@ -31,7 +31,9 @@ resources:
 -->
 # Hello!
 
-## {{ .title }}
+{{ .title }}
+
+[Link to other post]({{< ref "today-is-the-day#head_today" >}} "Link to today post")
 
 Glad 2 c u here
 
@@ -81,3 +83,4 @@ Get-ChildItem -Path ./ | foreach { $_.Name }
 {{ with .Resources.GetMatch "pic" }}
   [!{{.RelPermalink}}]()
 {{end}}
+

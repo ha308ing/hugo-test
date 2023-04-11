@@ -3,6 +3,8 @@ languageCode = 'en-us'
 title = 'My New Hugo Site'
 theme = 'paper'
 summaryLength = 70
+refLinksErrorLevel = 'ERROR'
+# refLinksNotFoundURL
 [taxonomies]
   category = 'categories'
   series = 'series'
