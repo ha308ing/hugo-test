@@ -7,6 +7,7 @@ refLinksErrorLevel = 'ERROR'
 # refLinksNotFoundURL
 posts = '/posts/:year/:month/:title'
 sectionPagesMenu = 'main'
+staticDir = ['static1', 'static2']
 [taxonomies]
   category = 'categories'
   series = 'series'
