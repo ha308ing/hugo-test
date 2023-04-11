@@ -12,6 +12,7 @@ slug: hello-psst
 resources:
 - name: pic
   src: pic.png
+toc: true
 ---
 <!--
 +++
@@ -29,13 +30,25 @@ resources:
   tags: ["greetings", "first post"],
 }
 -->
-# Hello!
+# Hello Post!
+
+## TOC
+
+{{ .TableOfContents }}
+
+## Title property
 
 {{ .title }}
+
+
+## Ref Link
 
 [Link to other post]({{< ref "today-is-the-day#head_today" >}} "Link to today post")
 
 Glad 2 c u here
+
+
+## Code
 
 ```js
 document.addEventListener( "DOMContentLoaded" , ()=>{} )
@@ -44,6 +57,9 @@ document.addEventListener( "DOMContentLoaded" , ()=>{} )
 ```ps
 Get-ChildItem -Path ./ | foreach { $_.Name }
 ```
+
+
+### Goat markup
 
 ```goat
       .
@@ -76,6 +92,10 @@ Get-ChildItem -Path ./ | foreach { $_.Name }
        '--- 4          '-- 4     \ 4
 
 ```
+
+
+## Resources
+
 {{ $image := .Resources.GetMatch "pic.png" }}
 ![alt text pic]("{{ $image.RelPermalink }}" 'pic title')
 ![alt text pic]({{.Resources.pic.Permalink}} 'pic title')
