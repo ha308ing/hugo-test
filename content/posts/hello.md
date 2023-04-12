@@ -36,6 +36,24 @@ toc: true
 
 {{ .TableOfContents }}
 
+
+## Syntax Highlighting
+
+{{< highlight js "linenos=inline,hl_lines=2,linenostart=12,anchorlinenos=true,lineanchors=2" >}}
+document.addEventListener( "DOMContentLoaded", () => {
+  console.warn( "qq" )
+}
+{{< / highlight >}}
+
+{{</* is equivalent to code fences */>}}
+
+
+```js {linenos=inline,hl_lines=[1,2],linenostart=12,anchorlinenos=true,lineanchors=2}
+document.addEventListener( "DOMContentLoaded", () => {
+  console.warn( "qq" )
+}
+```
+
 ## Title property
 
 {{ .title }}
