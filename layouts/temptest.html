@@ -292,6 +292,15 @@ To pass current context to template, pass "."
               </ul>
             </nav>
 
+Layout Lookup Rules
+  search in project and theme's layout folders
+  in priority order:
+  - Kind (ends up on _default/single.html and _default/list.html)
+  - Layout (can be set in page front matter)
+  - Output Format (name(rss,amp,html).suffix(xml,html): index.amp.html)
+  - Language (index.fr.amp.html > index.amp.html > index.fr.html)
+  - Type (value of type if front matter, else is the name of the root section, it will always have a value, so if not set, the value is "page")
+  - Section (for section, taxonomy, term types)
 
 
 
