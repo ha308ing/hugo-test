@@ -1,0 +1,298 @@
+<title>{{ .Title }}</title>
+{{ $addess := "123 Main St." }}
+{{ $address }
+{{/* Redefine Variable with = */}}
+{{ $addess = "456 Priver Dr." }}
+
+{{ $var := "Hugo Page" }}
+{{ if .IsHome }}
+  {{ $var = "Hugo Home" }}
+{{ end }}
+Var is {{ $var }}
+
+{{/*
+General Syntax
+{{ FUNCTION ARG1 ARG2 }}
+{{ add 1 2 }}
+
+Access Methods, Fields and Page Parameters:
+{{ .Params.bar }} ( Page Parameter bar )
+
+Parentheses is Used to Group Items Together
+{{ if or
+  (isset .Params "alt")
+  (issset .Params "caption")
+}}
+  Caption
+{{ end }}
+
+Raw String Literals Can Include Newlines
+{{ $msg := `Line one.
+Line two.` }}
+*/}}
+
+{{/* Functions */}}
+{{ add 1 2 }} {{/* prints 3 */}}
+{{ lt 1 2 }} {{/* prints true if 1 < 2 */}}
+{{/* GO boolean function:
+  eq =
+  ne !=
+  lt <
+  le <=
+  gt >
+  ge >=
+*/}}
+
+To pass current context to template, pass "."
+
+{{/* Partial Function */}}
+{{/* {{ partial "<PATH>/<PARTIAL>.<EXTENSION>" . }} */}}
+{{/* {{ partial "header.html" . }} use template "layouts/header.html" with current page context */}}
+
+{{/* Template Function
+  to call interntal templates
+  {{ template "_internal/<TEMPLATE>.<EXTENSION>" . }}
+
+  {{ template "_internal/opengraph.html" . }}
+  List of internal templates:
+    - _internal/disqus.html
+    - _internal/google_analytics.html
+    - _internal/google_analytics_async.html
+    - _internal/opengraph.html
+    - _internal/pagination.html
+    - _internal/schema.html
+    - _internal/twitter_cards.html
+*/}}
+
+{{/*
+  LOGIC
+
+    Iteration
+    - range to iterate over a map, array, or slice:
+
+      1) Using context (.)
+          {{ range $array }}
+            {{ . }} - represents an element in $array
+          {{ end }}
+
+      2) Declaring a variable name for an array element's value
+          {{ range $elem_val := $array }}
+            {{ $elem_val }}
+          {{ end }}
+
+      3) Variable names for index and value of array element
+          {{ range $elem_index, $elem_val := $array }}
+            {{ $elem_index }} -- {{ $elem_val }}
+          {{ end }}
+
+      4) same for map: $elem_key, $elem_val := $map
+
+      5) Conditional on empty map, array, slice
+          {{ range $array }}
+            {{ . }}
+          {{ else }}
+            ..evaluated only if $array is empty..
+          {{ end }}
+
+    Conditionals
+      - if (closing), else, with (closing), or, and, not
+
+      Falsy:
+        - boolean false
+        - integer 0
+        - zero-length array, slice, map, string
+
+      1) with
+          rebinds . within its scope (line in range)
+          skips the block if variable is falsy
+
+          {{ with .Params.title }}
+            <h4>{{ . }}</h4>
+          {{ end }}
+
+      2) with .. else
+
+          (if page has no description parameter (frontmatter params:description, print its summary variable (generated))
+          {{ with .Param "description" }}
+            {{ . }}
+          {{ else }}
+            {{ .Summary }}
+          {{ end }}
+
+      3) if
+          alternative to with
+          . DOES NOT get rebound
+
+          {{ if isset .Params "title" }}
+            <h4>{{ index .Params "title" }}</h4>
+          {{ end }}
+
+      4) if .. else
+
+          see example 2)
+          {{ if (isset .Params "description") }}
+            {{ index .Params "description" }}
+          {{ else }}
+            {{ .Summary }}
+          {{ end }}
+
+      5) if .. else if .. else
+
+          {{ if (isset .Params "description") }}
+            {{ index .Params "description" }}
+          {{ else if (isset .Params "summary" }}
+            {{ index .Params "summary" }}
+          {{ else }}
+            {{ .Summary }}
+          {{ end }}
+
+      6) and & or
+          {{ if (and (or (isset .Params "title") (isset .Params "caption")) (isset .Params "attr" )) }}
+          if ( ( t || c ) && a )
+
+    Pipes
+      to stack actions one after another
+      each pipeline's output becomes the input of the following pipe
+      limitation: work with a single value and that value becomes the last parameter of the next pipeline
+
+      1) shuffle
+        {{ shuffle (seq 1 5) }}
+        ==
+        {{ (seq 1 5) | shuffle }}
+
+      2) index
+        access page parameter "disqus_url" and escapes the HTML
+        {{ index .Params "disqus_url" | html }}
+
+      3) or with isset
+        {{ if or (or (isset .Params "title") (isset .Params "caption")) (isset .Params "attr") }}
+          ...
+        {{ end }}
+        ===
+        {{ if isset .Params "caption" | or isset .Params "title" | or isset .Params "attr" }}
+          ...
+        {{ end }}
+
+    Context (aka "the dot")
+      {{ . }} always refers to the current context
+      - in the top level of template, this will be the data set made available to it
+      - inside an iteration, it will have value of the current item in the loop
+
+      To access page-level data inside iteration:
+
+        1) Define a variable independent of context
+
+            {{ $title := .Site.Title }}
+            <ul>
+            {{ range .Params.tags }}
+              <li>
+                <a href="/tags/{{ . | urlize }}">{{ . }}</a>
+                - {{ $title }}
+              </li>
+            {{ end }}
+            </ul>
+
+        2) Use $. to acces the global context
+
+            <ul>
+            {{ range .Params.tags }}
+              <li>
+                <a href="/tags/{{ . | urlize }}">{{ . }}</a>
+                - {{ $.Site.Title }}
+              </li>
+            </ul>
+
+          {{ $ := .Site }} breaks things
+          to fix:
+          {{ $ := . }} in a global context
+          to reset $ to its default value
+
+    Whitespace
+      {{- .Title -}} - trim whitespace from either side if tag
+      <div>Hello, World</div>
+
+      Go considers the following characters whitespace:
+      - space
+      - horizontal tab
+      - carriage return
+      - newline
+
+    Comments
+
+      - Go Template Comments - nothing will be rendered (code isn't  evaluated):
+        {{/* comment */}}
+
+      - HTML comments (code evaluated)
+        by piping html comment to safeHTML:
+        - {{ "<!-- comment -->" }} | safeHTML }}
+        - {{ printf "<!-- comment with variable -->" .Site.Title | safeHTML }}
+
+      DO NOT comment out Go Template code using HTML Comments
+
+      <!-- {{ $author := "Emma" }} was a great woman -->
+      {{ $author }} {{/* comment code is evaluated and is used */}}
+
+
+    Hugo Parameter
+      options of passing values to template layer:
+      - through site configuration (site-wide values)
+      - through the metadata of each specific piece of content (front matter)
+
+      1) Use Content (Page) Parameters
+        |content/example.md:
+          ---
+          notoc: true
+          title: Example
+          ---
+        |layouts/partials/toc.html
+          {{ if not .Params.notoc }}
+            <aside>
+                <header>
+                  <a href="#{{ .Title | urlize }}">
+                    <h3>{{ .Title }}</h3>
+                  </a>
+                </header>
+                {{ .TableOfContents }}
+            </aside>
+            <a href="#" id="toc-toggle"></a>
+          {{end}}
+
+        2) Use Site Configuration Parameters
+          site-level parameters are globally available in templates
+
+          |config.yaml
+            params:
+              copyrighthtml: Copyright &$xA9; 2018 John Doe. All Right Reserved.
+              sidebarrecentlimit: 5
+              twitteruser: qq
+
+          |...
+            {{ if .Site.Params.copyrighthtml }}
+              <footer>
+                  <div class="text-center">{{ .Site.Params.CopyrightHTML | safeHTML }}</div>
+              </footer>
+            {{ end }}
+
+          |layouts/partials/twitter.html
+            {{ with .Site.Params.twitteruser }}
+              <div>
+                <a href="https://tw.com/{{ . }}" rel="author">
+                  <img src="/images/tw.png" width="48" height="48" title="twi: {{ . }}" alt="tw">
+                </a>
+              </div>
+            {{ end }}
+
+          |...
+            <nav>
+              <h1>Recent Posts</h1>
+              <ul>
+                {{- range first .Site.Params.SidebarRecentLimit .Site.Pages -}}
+                  <li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
+                {{- end -}}
+              </ul>
+            </nav>
+
+
+
+
+*/}}
