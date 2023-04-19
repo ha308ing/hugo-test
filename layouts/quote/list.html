@@ -1,0 +1,21 @@
+{{ define "main" }}
+<main>
+  <article>
+    <header>
+      {{/* since no _index.md .Title is section name */}}
+      <h1>{{ .Title }}</h1>
+    </header>
+    {{/* .Content pulls from markdown content of corresponding _index.md */}}
+    {{/* if no _index.md - no content */}}
+    {{ .Content }}
+  </article>
+  <ul>
+    {{/* Ranges through content/quote/*.md */}}
+    {{ range .Pages }}
+      <li>
+        <a href="{{ .Permalink }}">{{ .Date.Format "2006-01-02" }} | {{ .Title }}</a>
+      </li>
+    {{ end }}
+  </ul>
+</main>
+{{ end }}

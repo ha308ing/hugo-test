@@ -11,6 +11,8 @@ refLinksErrorLevel = 'ERROR'
 posts = '/posts/:year/:month/:title'
 sectionPagesMenu = 'main'
 staticDir = ['static1', 'static2']
+# section: quote, section list: quotes
+pluralizeListTitles = false
 [taxonomies]
   category = 'categories'
   series = 'series'
