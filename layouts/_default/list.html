@@ -1,0 +1,15 @@
+{{- define "title" -}}
+  {{/* <!-- this will override the default value set in baseof.html --> */}}
+  Redefined title for lists &vdash; {{ .Title }} &ndash; {{ .Site.Title }}
+{{- end -}}
+
+
+{{ define "main" }}
+  <h1>List of Posts</h1>
+  {{ range .Pages }}
+    <article>
+      <h2>{{ .Title }}</h2>
+      {{ .Content }}
+    </article>
+  {{ end }}
+{{ end }}
