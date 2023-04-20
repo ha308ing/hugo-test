@@ -21,19 +21,19 @@
 
 {{/*
 
-  {{/*
+  <!--
     Section Template
     layouts/section/posts.html
-  */}}
+  -->
 
   {{ partial "header.html" . }}
-  {{ partial ""subheader.html" . }}
+  {{ partial "subheader.html" . }}
 
   <main>
     <div>
       <h1>{{ .Title }}</h1>
       <ul>
-        {{/* Renders the li.html content view for each content/posts/*.md */}}
+        <!-- Renders the li.html content view for each content/posts/*.md -->
         {{ range .Pages }}
           {{ .Render "li" }}
         {{ end }}
@@ -48,19 +48,19 @@
 
 {{/*
 
-  {{/*
+  <!--
     Taxonomy Template
     layouts/_default/taxonomy.html
-  */}}
+  -->
 
   {{ define "main" }}
     <main>
       <div>
         <h1>{{ .Title }}</h1>
-        {{/*
+        <!--
           ranges through each of the content files associated with a particular taxonomy term
           and renders the summary.html content view
-        */}}
+        -->
         {{ range .Pages }}
           {{ .Render "summary" }}
         {{ end }}
