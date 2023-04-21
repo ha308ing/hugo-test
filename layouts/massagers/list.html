@@ -5,11 +5,11 @@
 
 
 {{ define "main" }}
-  <h1>List of Posts</h1>
+  <h1>List of {{ .Title }}</h1>
   {{ range .Pages }}
     <article>
-      <h2>{{ .Title }}</h2>
-      {{ .Content }}
+      <h2>{{ .Title | lower }} <a href="{{ .Permalink }}">&#35;</a></h2>
+      {{/* .Content */}}
     </article>
   {{ end }}
 {{ end }}
